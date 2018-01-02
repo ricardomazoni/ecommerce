@@ -1,4 +1,5 @@
 <?php 
+session_start();
 
 require_once("vendor/autoload.php");
 
@@ -27,7 +28,7 @@ $app->get('/admin', function() {
 
 });
 
-/*$app->get('/admin/login', function() {
+$app->get('/admin/login', function() {
 
 	$page = new PageAdmin([
 		"header"=>false,
@@ -39,14 +40,26 @@ $app->get('/admin', function() {
 
 });
 
-$app->pos('/admin/login',function(){
+
+
+$app->post('/admin/login',function(){
 
 	User::login($_POST["login"],$_POST["password"]);
 
 	header("Location: /admin");
 	exit;
 
-});*/
+});
+
+$app->get('/admin/logout',function(){
+
+	User::logout();
+
+	header("Location: /admin/login");
+	exit;
+
+});
+
 
 
 $app->run();
